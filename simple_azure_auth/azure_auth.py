@@ -104,7 +104,7 @@ class AzureAuth:
 
         self.keys = {}
         self.last_keys_refresh = 0
-        self._refresh_keys()
+        self._get_keys()
 
     def build_auth_url(
             self,
