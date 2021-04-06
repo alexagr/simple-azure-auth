@@ -43,7 +43,7 @@ except ImportError:
 __version__ = "1.0.0"
 
 
-class AzureAuth():
+class AzureAuth:
 
     def __init__(
             self,
