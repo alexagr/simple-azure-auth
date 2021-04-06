@@ -1,0 +1,5 @@
+Flask>=1,<2
+werkzeug>=1,<2
+requests>=2,<3
+PyJWT>=1.7,<2
+cryptography>=3,<4
