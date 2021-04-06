@@ -19,7 +19,6 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 @app.route("/")
 def index():
-    print(session)
     if not session.get("user"):
         return redirect(url_for("login"))
     return render_template('index.html', user=session["user"], logout_url=url_for("logout", _external=True))
@@ -29,7 +28,6 @@ def index():
 def login():
     data = azure_auth.build_auth_url(redirect_url=url_for("get_token", _external=True))
     session["nonce"] = data["nonce"]
-    print(data)
     return render_template("login.html", auth_url=data["auth_url"])
 
 
@@ -43,7 +41,7 @@ def get_token():
     if app_config.USER_ROLE and not azure_auth.check_role(data, app_config.USER_ROLE):
         return render_template("failed.html", error="User is not granted '{}' role".format(app_config.USER_ROLE))
 
-    session["user"] = data["payload"].get('name', '') or data["payload"].get('preferred_username', '')
+    session["user"] = data["payload"].get('name', '') or data["payload"].get('preferred_username', '<anonymous>')
     return redirect(url_for("index"))
 
 
